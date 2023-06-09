@@ -1,7 +1,7 @@
 package arvore;
 
 public class Item3 {
-	private char chave;
+	private int chave;
 	private String time;
 	// aqui podem ser declarados outros atributos conforme sua necessidade.
 	//Construtor de objetos da classe Item

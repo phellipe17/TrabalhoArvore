@@ -8,13 +8,12 @@ import java.util.Random;
 
 public class CampeonatoFutebol {
 	static Scanner scan =new Scanner(System.in);
-	static Arvore2 arquivocampeonato = new Arvore();
-	static Arvore3 arquivotimes = new Arvore();
+	static Arvore arquivopontuacao = new Arvore();
+	static Arvore2 arquivotimes = new Arvore2();
 	static Item [] vetor= new Item[10];
-	//static int quanttime=0;
 	static Random gerador = new Random(50);
+	
 	public static void main(String[] args) {
-		//Arvore que contem pontos e arvore que contem o time
 		int valor;
 		char opcao=0;
 		Apresenta();
@@ -71,15 +70,17 @@ public class CampeonatoFutebol {
 		int pontu;
 		System.out.println("Digite o nome do time");
 		nome=scan.next();
-		int numeritotime= gerador.nextInt();
-		arquivotimes.inserir(new Item(numeritotime));
+		int numerito = gerador.nextInt();
+		System.out.println("Digite a pontuação do time:");
+		pontu=scan.nextInt();
+		arquivopontuacao.inserir(new Item(pontu));
+		arquivotimes.inserir(new Item2(), nome)
+		
 		
 	}
 	
 	public static void PesquisaTime() {
-		String nome;
-		boolean continua=true;
-		if (arquivocampeonato.eVazia()){
+		if (arquivotimes.eVazia()){
 			System.out.println("Árvore está vazia");
 		}else{
 			
@@ -89,7 +90,7 @@ public class CampeonatoFutebol {
 	}
 	
 	public static void ExcluiTime() {
-		if (arquivocampeonato.eVazia()){
+		if (arquivotimes.eVazia()){
 			System.out.println("Árvore está vazia");
 		}else{
 			
@@ -97,7 +98,7 @@ public class CampeonatoFutebol {
 	}
 	
 	public static void MostraOrdenado() {
-		if (arquivocampeonato.eVazia()){
+		if (arquivotimes.eVazia()){
 			System.out.println("Árvore está vazia");
 		}else{
 			

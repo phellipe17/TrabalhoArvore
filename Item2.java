@@ -7,7 +7,6 @@ public class Item2 {
 	//Construtor de objetos da classe Item
 	public Item2(int ch, String tim) {
 		this.chave = ch;
-		this.time=tim;
 	}
 	//Modifica o valor do atributo chave
 	public void setChave (int ch){
@@ -17,7 +16,6 @@ public class Item2 {
 	public int getChave (){
 		return this.chave;
 	}
-	
 	public void setTime(String tim) {
 		this.time=tim;
 	}
