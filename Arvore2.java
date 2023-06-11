@@ -21,7 +21,7 @@ public class Arvore2 {
 	//inserir um novo nó na arvore. Sempre insere em um atributo que seja igual a null
 	//necessário pesquisa 2 para checar se o time já existe e pesquisa 1 para ver se o indice já existe
 	public boolean inserir (Item2 elem, String tim){
-		if (pesquisar2(elem.getTime()) && pesquisar(elem.getChave()) ){
+		if (pesquisar2(elem.getTime())){
 			return false;
 		}else{
 			this.raiz = inserir(elem, this.raiz,tim);
@@ -43,7 +43,7 @@ public class Arvore2 {
 			}
 		}
 	}
-	//Pesquisa se o indice já existe
+	//Pesquisa se o indice==pontuacao já existe
 	public boolean pesquisar (int chave){
 		if (pesquisar (chave, this.raiz)!= null){
 			return true;
@@ -73,10 +73,12 @@ public class Arvore2 {
 	}
 	private NoArv2 pesquisar2 (NoArv2 no, String tim2){
 		if (no != null){
-			if (tim2 !=no.getInfo().getTime()){
+			if(tim2.compareToIgnoreCase(no.getInfo().getTime())<0) {
+			//if (tim2 !=no.getInfo().getTime()){
 				no = pesquisar2 (no.getEsq(),tim2);
 			}else{
-				if (tim2 !=no.getInfo().getTime()){
+				if(tim2.compareToIgnoreCase(no.getInfo().getTime())>0) {
+				//if (tim2 !=no.getInfo().getTime()){
 					no = pesquisar2 (no.getDir(),tim2);
 				}
 			}
@@ -100,9 +102,9 @@ public class Arvore2 {
 	//remove um determinado nó procurando pela chave. O nó pode estar em qualquer
 	//posição na árvore
 	//imagino que só o ato de pesquisar 2 possa resolver pois trata do nome do time
-	public boolean remover (int chave, String tim){
+	public boolean remover (String tim){
 		if (pesquisar2(this.raiz,tim) != null){
-			this.raiz = remover (chave, this.raiz,tim);
+			this.raiz = remover (this.raiz,tim);
 			this.quantNos--;
 			return true;
 		}
@@ -110,12 +112,12 @@ public class Arvore2 {
 			return false;
 		}
 	}
-	public NoArv2 remover (int chave, NoArv2 arv, String tim2){
-		if (chave == arv.getInfo().getChave() && tim2 == arv.getInfo().getTime()){
-			arv.setEsq(remover (chave, arv.getEsq(),tim2));
+	public NoArv2 remover (NoArv2 arv, String tim2){
+		if (tim2 == arv.getInfo().getTime()){
+			arv.setEsq(remover (arv.getEsq(),tim2));
 		}else{
-			if (chave == arv.getInfo().getChave() && tim2 == arv.getInfo().getTime()){
-				arv.setDir(remover (chave, arv.getDir(),tim2));
+			if (tim2 == arv.getInfo().getTime()){
+				arv.setDir(remover (arv.getDir(),tim2));
 			}else{
 				if (arv.getDir()== null){
 					return arv.getEsq();
