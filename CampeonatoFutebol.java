@@ -11,6 +11,7 @@ public class CampeonatoFutebol {
 	static Arvore arquivopontuacao = new Arvore();
 	static Arvore2 arquivotimes = new Arvore2();
 	static Item [] vetor= new Item[10];
+	static Item2 [] vetor2 = new Item2[10];
 	static Random gerador = new Random(50);
 	
 	public static void main(String[] args) {
@@ -28,8 +29,12 @@ public class CampeonatoFutebol {
 				case '3':
 					ExcluiTime();
 				case '4':
-					MostraPontuordenada();
+					MostraMaiorMenorpontu();
 				case '5':
+					Mostratimesmesmainicial();
+				case '6':
+					MostraTimesMaisquinze();
+				case '7':
 					System.out.println("fim do programa");
 					break;
 					
@@ -38,7 +43,7 @@ public class CampeonatoFutebol {
 			}
 			
 		}
-		while (opcao!='4');
+		while (opcao!='7');
 		System.exit(0);
 	}
 	
@@ -59,8 +64,10 @@ public class CampeonatoFutebol {
 		System.out.println("1 - Cadastrar time com sua pontuação.");
 		System.out.println("2 - Pesquisar o time e sua pontuacao.");
 		System.out.println("3 - Excluir time e sua pontuacao");
-		System.out.println("4 - Exibir pontuaçao para menor");
-		System.out.println("5 - Sair do programa.");
+		System.out.println("4 - Exibir da maior para menor pontuação dos times");
+		System.out.println("5 - Exibir os times com a mesma letra inical");
+		System.out.println("6 - Exibir times com numero de jogadores maior que 15");
+		System.out.println("7 - Sair do programa.");
 		System.out.println("####################################################");
 		System.out.println("Digite uma opcao: ");
 	}
@@ -119,15 +126,69 @@ public class CampeonatoFutebol {
 		if (arquivopontuacao.eVazia()){
 			System.out.println("Árvore está vazia");
 		}else{
-			if (arquivopontuacao.eVazia()){
-				System.out.println("A árvore está vazia");
-			}else{
 				vetor = arquivopontuacao.CamCentral();
 				String msg=" ";
 				for (int i=0; i<arquivopontuacao.getQuantNos();i++){
 					msg+= vetor[i].getChave()+" ";
 				}
 				System.out.println("Exibir a árvore: "+ msg);
+			}
+		
+	}
+	
+	public static void Mostratimesmesmainicial() {
+		String timero;
+		if (arquivotimes.eVazia()){
+			System.out.println("Árvore está vazia");
+		}else{
+			System.out.println("Digite o nome do time em que é desejado achar os times com a mesma inicial: ");
+			timero=scan.next();
+			vetor2 = arquivotimes.Pesquisatimeinicial(timero);
+			if(vetor2[0]==null) {
+				System.out.println("Não se tem time com mesma inicial.");
+			}
+			else {
+				String msg=" ";
+				for (int i=0; i<arquivotimes.getQuantNos();i++){
+				msg+= vetor2[i].getTime()+" ";
+				}
+				System.out.println("Os times em ordem alfabética que contém a mesma inical: \n"+ msg+"\n");
+			}
+			
+		}
+	}
+	
+	
+	public static void MostraMaiorMenorpontu() {
+		int z=0;
+		if (arquivopontuacao.eVazia()){
+			System.out.println("Árvore está vazia");
+		}else{
+			vetor = arquivopontuacao.CamCentral();
+			String msg=" ";
+			for (int i=arquivopontuacao.getQuantNos(); i>0;i--){
+				msg+= vetor[z].getChave()+" ";
+				z++;
+			}
+			System.out.println("Maior pontuacao para menor dos times: \n"+ msg+"\n");
+		}
+	}
+	
+	public static void MostraTimesMaisquinze() {
+		String msg="";
+		if (arquivotimes.eVazia()){
+			System.out.println("Árvore está vazia");
+		}else{
+			System.out.println("Esses são os tiimes com mais de 15 jogadores:");
+			vetor2= arquivotimes.PesquisaQuantJog();
+			if(vetor2[0]==null) {
+				System.out.println("Nao temos times com mais de 15 jogadores.");
+			}
+			else {
+				for(int i=0;i<arquivotimes.getQuantNos();i++) {
+					msg+= vetor2[i].getTime() + "jogadores: " + vetor2[i].getChave() +"\n";
+				}
+				System.out.println(msg);
 			}
 		}
 	}

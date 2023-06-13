@@ -1,6 +1,6 @@
 package arvore;
 
-import dados.Item;
+//import dados.Item;
 
 public class Arvore2 {
 	private NoArv2 raiz;
@@ -158,7 +158,7 @@ public class Arvore2 {
 		}
 		return vet;
 	}
-	//caminhamento pré-fixado
+	//caminhamento pré-fixado - 
 	public Item2 [] CamPreFixado (){
 		int []n= new int[1];
 		n[0]=0;
@@ -174,7 +174,7 @@ public class Arvore2 {
 		}
 		return vet;
 	}
-	//caminhamento pós-fixado
+	//caminhamento pós-fixado - busca os do mais baixo da árvore para cima
 	public Item2 [] CamPosFixado (){
 		int []n= new int[1];
 		n[0]=0;
@@ -190,7 +190,47 @@ public class Arvore2 {
 		}
 		return vet;
 	}
-
-
+	
+	//utilizado copia cam central para colocar em ordem alfabetica os times.
+	public Item2 [] Pesquisatimeinicial(String tim) {
+		int []n= new int[1];
+		n[0]=0;
+		Item2 [] vet = new Item2[this.quantNos];
+		return (FazPesquisatimeinicial (this.raiz, vet, n,tim));
+	}
+	
+	private Item2[] FazPesquisatimeinicial(NoArv2 arv, Item2[] vet, int []n,String tim2) {
+		if (arv != null) {
+			vet = FazCamCentral (arv.getEsq(),vet,n);
+			if(tim2.charAt(0)==arv.getInfo().getTime().charAt(0)) {
+				vet[n[0]] = arv.getInfo();
+			}
+			n[0]++;
+			vet = FazCamCentral (arv.getDir(),vet,n);
+		}
+		return vet;
+	}
+	
+	//quantos times possuem mais de 15 jogadores no time - Usando pos
+	
+	public Item2 [] PesquisaQuantJog() {
+		int []n= new int[1];
+		n[0]=0;
+		Item2 [] vet = new Item2[this.quantNos];
+		return (FazPesquisaQuantJog (this.raiz, vet, n));
+	}
+	
+	public Item2 [] FazPesquisaQuantJog(NoArv2 arv, Item2[] vet, int []n) {
+		if (arv != null) {
+			vet = FazCamPosFixado (arv.getEsq(), vet,n);
+			vet = FazCamPosFixado (arv.getDir(), vet,n);
+			if(arv.getInfo().getChave()>=15) {
+				vet[n[0]] = arv.getInfo();
+				n[0]++;
+			}
+		}
+		return vet;
+	}
+	
 
 }

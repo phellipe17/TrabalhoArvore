@@ -1,6 +1,6 @@
 package arvore;
 
-import dados.Item;
+//import dados.Item;
 
 public class NoArv2 {
 	private Item2 info; // o tipo Item está declarado no capítulo 1
