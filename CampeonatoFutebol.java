@@ -8,14 +8,14 @@ import java.util.Random;
 
 public class CampeonatoFutebol {
 	static Scanner scan =new Scanner(System.in);
-	static Arvore arquivopontuacao = new Arvore();
+	static Arvore3 arquivocampeonato = new Arvore3();
 	static Arvore2 arquivotimes = new Arvore2();
-	static Item [] vetor= new Item[10];
+	static Item3 [] vetor= new Item3[10];
 	static Item2 [] vetor2 = new Item2[10];
 	static Random gerador = new Random(50);
 	
 	public static void main(String[] args) {
-		int valor;
+		//int valor;
 		char opcao=0;
 		Apresenta();
 		do {
@@ -29,11 +29,11 @@ public class CampeonatoFutebol {
 				case '3':
 					ExcluiTime();
 				case '4':
-					MostraMaiorMenorpontu();
+					MostraAnosCampeonato();
 				case '5':
-					Mostratimesmesmainicial();
+					PesquisaCampeonato();
 				case '6':
-					MostraTimesMaisquinze();
+					PontuacaodoTime();
 				case '7':
 					System.out.println("fim do programa");
 					break;
@@ -64,8 +64,8 @@ public class CampeonatoFutebol {
 		System.out.println("1 - Cadastrar time com sua pontuação.");
 		System.out.println("2 - Pesquisar o time e sua pontuacao.");
 		System.out.println("3 - Excluir time e sua pontuacao");
-		System.out.println("4 - Exibir da maior para menor pontuação dos times");
-		System.out.println("5 - Exibir os times com a mesma letra inical");
+		System.out.println("4 - Exibir os anos em que aconteceram campeonatos");
+		System.out.println("5 - Verificar se o campeonato que você pensa aconteceu no ano digitado");
 		System.out.println("6 - Exibir times com numero de jogadores maior que 15");
 		System.out.println("7 - Sair do programa.");
 		System.out.println("####################################################");
@@ -73,20 +73,30 @@ public class CampeonatoFutebol {
 	}
 	
 	public static void CadastraTime() {
-		String nome;
-		int jogadores=0;
-		int pontu;
+		String nome, nomeCamp;
+		int pontua,anu1 ;
+		
 		System.out.println("Digite o nome do time");
 		nome=scan.next();
-		//int numerito = gerador.nextInt();
+		int chave = gerador.nextInt();
 		System.out.println("Digite a pontuação do time:");
-		pontu=scan.nextInt();
-		while(jogadores<11) {
-			System.out.println("Digite quantos jogadores tem atualmente no time: ");
-			jogadores=scan.nextInt();	
+		pontua=scan.nextInt();
+		System.out.println("Ano em que o time foi campeão: ");
+		anu1=scan.nextInt();
+		System.out.println("E o nome do campeonato que ele participou");
+		nomeCamp=scan.next();
+		if(arquivocampeonato.inserir(new Item3(chave,nomeCamp,anu1))) {
+			System.out.println("Foi inserido na árvore de campeonatos corretamente.");
+		}else {
+			System.out.println("Não foi possivel inserir pois já existe ");
 		}
-		arquivopontuacao.inserir(new Item(pontu));
-		arquivotimes.inserir(new Item2(jogadores,nome), nome);
+		if(arquivotimes.inserir(new Item2(chave,nome,pontua))) {
+			System.out.println("O time foi inserido na árvore de times corretamente.");
+		}else {
+			System.out.println("Nao foi possivel pois a arvore já tem esse time.");
+		}
+		
+		
 				
 	}
 	
@@ -102,8 +112,27 @@ public class CampeonatoFutebol {
 			}else {
 				System.out.println("Não foi dessa vez que teremos o seu time na nossa arvore, poxa vida!!");
 			}
-			}
+		}
 		
+	}
+	
+	public static void PesquisaCampeonato() {
+		String nomecamp;
+		int ano;
+		if (arquivotimes.eVazia()){
+			System.out.println("Árvore está vazia");
+		}else{
+			System.out.println("Digite o nome do campeonato e o ano para ver se ele acontecer: ");
+			nomecamp=scan.next();
+			System.out.println("Agora o ano: ");
+			ano=scan.nextInt();
+			if(arquivocampeonato.pesquisar3(ano, nomecamp)) {
+				System.out.println("Ocorreu campeonato nesse mesmo ano!!");
+			}
+			else {
+				System.out.println("Esse campeonato não aconteceu no ano desejado, me desculpe.");
+			}
+		}
 	}
 	
 	public static void ExcluiTime() {
@@ -122,75 +151,80 @@ public class CampeonatoFutebol {
 		}
 	}
 	
-	public static void MostraPontuordenada() {
-		if (arquivopontuacao.eVazia()){
+	public static void ExcluiCampeonato() {
+		int valor;
+		if (arquivocampeonato.eVazia()){
+			System.out.println("Arvore está vazia");
+		}else {
+			System.out.println("Excluir um elemento da"+
+					" lista\nDigite um valor:");
+			valor = scan.nextInt();
+			if (arquivocampeonato.remover(valor)){
+				System.out.println("remoção efetuada");
+			}else{
+				System.out.println("remoção não"+
+						" efetuada, valor não encontrado");
+			}
+		}
+	}
+	
+	public static void MostraAnosCampeonato() {
+		if (arquivocampeonato.eVazia()){
 			System.out.println("Árvore está vazia");
 		}else{
-				vetor = arquivopontuacao.CamCentral();
+				vetor = arquivocampeonato.CamCentral();
 				String msg=" ";
-				for (int i=0; i<arquivopontuacao.getQuantNos();i++){
-					msg+= vetor[i].getChave()+" ";
+				for (int i=0; i<arquivocampeonato.getQuantNos();i++){
+					msg+= vetor[i].getAno()+" ";
 				}
 				System.out.println("Exibir a árvore: "+ msg);
 			}
 		
 	}
 	
-	public static void Mostratimesmesmainicial() {
-		String timero;
-		if (arquivotimes.eVazia()){
-			System.out.println("Árvore está vazia");
-		}else{
-			System.out.println("Digite o nome do time em que é desejado achar os times com a mesma inicial: ");
-			timero=scan.next();
-			vetor2 = arquivotimes.Pesquisatimeinicial(timero);
-			if(vetor2[0]==null) {
-				System.out.println("Não se tem time com mesma inicial.");
-			}
-			else {
-				String msg=" ";
-				for (int i=0; i<arquivotimes.getQuantNos();i++){
-				msg+= vetor2[i].getTime()+" ";
-				}
-				System.out.println("Os times em ordem alfabética que contém a mesma inical: \n"+ msg+"\n");
-			}
-			
-		}
-	}
+//	public static void Mostratimesmesmainicial() {
+//		String timero;
+//		if (arquivotimes.eVazia()){
+//			System.out.println("Árvore está vazia");
+//		}else{
+//			System.out.println("Digite o nome do time em que é desejado achar os times com a mesma inicial: ");
+//			timero=scan.next();
+//			vetor2 = arquivotimes.Pesquisatimeinicial(timero);
+//			if(vetor2[0]==null) {
+//				System.out.println("Não se tem time com mesma inicial.");
+//			}
+//			else {
+//				String msg=" ";
+//				for (int i=0; i<arquivotimes.getQuantNos();i++){
+//				msg+= vetor2[i].getTime()+" ";
+//				}
+//				System.out.println("Os times em ordem alfabética que contém a mesma inical: \n"+ msg+"\n");
+//			}
+//			
+//		}
+//	}
 	
 	
-	public static void MostraMaiorMenorpontu() {
-		int z=0;
-		if (arquivopontuacao.eVazia()){
-			System.out.println("Árvore está vazia");
-		}else{
-			vetor = arquivopontuacao.CamCentral();
-			String msg=" ";
-			for (int i=arquivopontuacao.getQuantNos(); i>0;i--){
-				msg+= vetor[z].getChave()+" ";
-				z++;
-			}
-			System.out.println("Maior pontuacao para menor dos times: \n"+ msg+"\n");
-		}
-	}
+//	public static void MostraMaiorMenorpontu() {
+//		int z=0;
+//		if (arquivopontuacao.eVazia()){
+//			System.out.println("Árvore está vazia");
+//		}else{
+//			vetor = arquivopontuacao.CamCentral();
+//			String msg=" ";
+//			for (int i=arquivopontuacao.getQuantNos(); i>0;i--){
+//				msg+= vetor[z].getChave()+" ";
+//				z++;
+//			}
+//			System.out.println("Maior pontuacao para menor dos times: \n"+ msg+"\n");
+//		}
+//	}
 	
-	public static void MostraTimesMaisquinze() {
-		String msg="";
-		if (arquivotimes.eVazia()){
-			System.out.println("Árvore está vazia");
-		}else{
-			System.out.println("Esses são os tiimes com mais de 15 jogadores:");
-			vetor2= arquivotimes.PesquisaQuantJog();
-			if(vetor2[0]==null) {
-				System.out.println("Nao temos times com mais de 15 jogadores.");
-			}
-			else {
-				for(int i=0;i<arquivotimes.getQuantNos();i++) {
-					msg+= vetor2[i].getTime() + "jogadores: " + vetor2[i].getChave() +"\n";
-				}
-				System.out.println(msg);
-			}
-		}
+	public static void PontuacaodoTime() {
+		String nome;
+		System.out.println("Digite o nome do time que deseja verificar com quantos pontos ele ganhou no campeonato: ");
+		nome=scan.next();
+		
 	}
 
 }

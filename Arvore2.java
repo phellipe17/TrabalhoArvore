@@ -20,25 +20,25 @@ public class Arvore2 {
 	}
 	//inserir um novo nó na arvore. Sempre insere em um atributo que seja igual a null
 	//necessário pesquisa 2 para checar se o time já existe e pesquisa 1 para ver se o indice já existe
-	public boolean inserir (Item2 elem, String tim){
+	public boolean inserir (Item2 elem){
 		if (pesquisar2(elem.getTime())){
 			return false;
 		}else{
-			this.raiz = inserir(elem, this.raiz,tim);
+			this.raiz = inserir(elem, this.raiz);
 			this.quantNos++;
 			return true;
 		}
 	}
-	public NoArv2 inserir (Item2 elem, NoArv2 no, String tim2){
+	public NoArv2 inserir (Item2 elem, NoArv2 no){
 		if (no == null){
 			NoArv2 novo = new NoArv2(elem);
 			return novo;
 		}else {
 			if (elem.getChave() < no.getInfo().getChave()){
-				no.setEsq(inserir(elem, no.getEsq(),tim2));
+				no.setEsq(inserir(elem, no.getEsq()));
 				return no;
 			}else{
-				no.setDir(inserir(elem, no.getDir(),tim2));
+				no.setDir(inserir(elem, no.getDir()));
 				return no;
 			}
 		}
@@ -85,6 +85,35 @@ public class Arvore2 {
 		}
 		return no;
 	}
+	
+	
+	//pesquisa o time para falar a computacao que ele ganhou o campeonato.
+	public boolean pesquisar3 (String tim){
+		
+		noArv2 treco = pesquisar3(this.raiz,tim);
+		if (pesquisar3(this.raiz,tim)!= null){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	private NoArv2 pesquisar3 (NoArv2 no, String tim2){
+		if (no != null){
+			if(tim2.compareToIgnoreCase(no.getInfo().getTime())<0) {
+			//if (tim2 !=no.getInfo().getTime()){
+				no = pesquisar2 (no.getEsq(),tim2);
+			}else{
+				if(tim2.compareToIgnoreCase(no.getInfo().getTime())>0) {
+				//if (tim2 !=no.getInfo().getTime()){
+					no = pesquisar2 (no.getDir(),tim2);
+				}
+			}
+		}
+		return no;
+	}
+	
+	
+	
 	//para adicionar a comparação no futuro String
 //	String str1 = "A";
 //	String str2 = "B";
@@ -191,7 +220,8 @@ public class Arvore2 {
 		return vet;
 	}
 	
-	//utilizado copia cam central para colocar em ordem alfabetica os times.
+	//utilizado copia cam central para colocar em ordem alfabetica os times e mostra apenas os times da arvore que tem a mesma inical
+	//do time que foi passado
 	public Item2 [] Pesquisatimeinicial(String tim) {
 		int []n= new int[1];
 		n[0]=0;
@@ -220,7 +250,7 @@ public class Arvore2 {
 		return (FazPesquisaQuantJog (this.raiz, vet, n));
 	}
 	
-	public Item2 [] FazPesquisaQuantJog(NoArv2 arv, Item2[] vet, int []n) {
+	private Item2 [] FazPesquisaQuantJog(NoArv2 arv, Item2[] vet, int []n) {
 		if (arv != null) {
 			vet = FazCamPosFixado (arv.getEsq(), vet,n);
 			vet = FazCamPosFixado (arv.getDir(), vet,n);
@@ -231,6 +261,8 @@ public class Arvore2 {
 		}
 		return vet;
 	}
+	
+	public
 	
 
 }

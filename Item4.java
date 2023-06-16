@@ -1,12 +1,12 @@
 package arvore;
 
-public class Item3 {
+public class Item4 {
 	private int chave;
 	private String campeonato;
 	private int ano;
 	// aqui podem ser declarados outros atributos conforme sua necessidade.
 	//Construtor de objetos da classe Item
-	public Item3(int ch, String camp, int anu) {
+	public Item4(char ch, String camp, int anu) {
 		this.chave = ch;
 		this.campeonato=camp;
 		this.ano=anu;
