@@ -64,20 +64,20 @@ public class Arvore3 {
 		return no;
 	}
 	//pesquisa ano
-	public boolean pesquisar2 (int anu){
-		if (pesquisar2 (anu, this.raiz)!= null){
+	public boolean pesquisar2 (int chave){
+		if (pesquisar2 (chave, this.raiz)!= null){
 			return true;
 		}else{
 			return false;
 		}
 	}
-	private NoArv3 pesquisar2 (int anu, NoArv3 no){
+	private NoArv3 pesquisar2 (int chave, NoArv3 no){
 		if (no != null){
-			if (anu < no.getInfo().getChave() ){
-				no = pesquisar (anu, no.getEsq());
+			if (chave < no.getInfo().getChave() ){
+				no = pesquisar (chave, no.getEsq());
 			}else{
-				if (anu > no.getInfo().getChave()){
-					no = pesquisar (anu, no.getDir());
+				if (chave > no.getInfo().getChave()){
+					no = pesquisar (chave, no.getDir());
 				}
 			}
 		}
@@ -85,25 +85,22 @@ public class Arvore3 {
 	}
 	
 	//pesquisa ano e campeonato
-	
-	public boolean pesquisar3 (int anu, String campe){
-		if (pesquisar3 (anu, this.raiz,campe)!= null){
-			return true;
-		}else{
-			return false;
-		}
+	public Item3 [] Pesquisaanocampeonato (String camp){
+		int []n= new int[1];
+		n[0]=0;
+		Item3 [] vet = new Item3[this.quantNos];
+		return (FazPesquisaanocampeonato (this.raiz, vet, n,camp));
 	}
-	private NoArv3 pesquisar3 (int anu, NoArv3 no, String campe){
-		if (no != null){
-			if (anu < no.getInfo().getChave() && campe != no.getInfo().getCampeonato()){
-				no = pesquisar (anu, no.getEsq());
-			}else{
-				if (anu > no.getInfo().getChave() && campe !=no.getInfo().getCampeonato()){
-					no = pesquisar (anu, no.getDir());
-				}
+	private Item3 [] FazPesquisaanocampeonato (NoArv3 arv, Item3 [] vet, int []n,String camp2){
+		if (arv != null) {
+			vet = FazCamCentral (arv.getEsq(),vet,n);
+			if(camp2== arv.getInfo().getCampeonato()) {
+				vet[n[0]] = arv.getInfo();
 			}
+			n[0]++;
+			vet = FazCamCentral (arv.getDir(),vet,n);
 		}
-		return no;
+		return vet;
 	}
 	
 	

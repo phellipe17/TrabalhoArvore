@@ -20,7 +20,7 @@ public class Item3 {
 		return this.chave;
 	}
 	
-	public void setTime(String camp) {
+	public void setCampeonato(String camp) {
 		this.campeonato=camp;
 	}
 	

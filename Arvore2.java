@@ -43,7 +43,7 @@ public class Arvore2 {
 			}
 		}
 	}
-	//Pesquisa se o indice==pontuacao já existe
+	//Pesquisa se chave
 	public boolean pesquisar (int chave){
 		if (pesquisar (chave, this.raiz)!= null){
 			return true;
@@ -87,9 +87,8 @@ public class Arvore2 {
 	}
 	
 	
-	//pesquisa o time para falar a computacao que ele ganhou o campeonato.
+	//pesquisa o time para falar a pontuacao que ele ganhou o campeonato.
 	public String pesquisar3 (String tim){
-		
 		Item2 treco = pesquisar3(this.raiz,tim).getInfo();
 		if ((treco)!= null){
 			return "Nome do time: "+ treco.getTime() + "Pontuacao: " + treco.getPontuacao();
@@ -97,6 +96,7 @@ public class Arvore2 {
 			return "O time não existe e portanto nao e possivel mostrar pontuacao";
 		}
 	}
+	
 	private NoArv2 pesquisar3 (NoArv2 no, String tim2){
 		if (no != null){
 			if(tim2.compareToIgnoreCase(no.getInfo().getTime())<0) {
@@ -112,21 +112,6 @@ public class Arvore2 {
 		return no;
 	}
 	
-	
-	
-	//para adicionar a comparação no futuro String
-//	String str1 = "A";
-//	String str2 = "B";
-//
-//	int comp = str1.compareTo(str2);
-//
-//	if(comp < 0) {
-//	  System.out.println("str1 menor que str2");
-//	} else if(comp > 0) {
-//	  System.out.println("str1 maior que str2");
-//	} else {
-//	  System.out.println("str1 e str2 são iguais");
-//	}
 	
 	//remove um determinado nó procurando pela chave. O nó pode estar em qualquer
 	//posição na árvore
