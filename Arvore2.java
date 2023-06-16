@@ -88,13 +88,13 @@ public class Arvore2 {
 	
 	
 	//pesquisa o time para falar a computacao que ele ganhou o campeonato.
-	public boolean pesquisar3 (String tim){
+	public String pesquisar3 (String tim){
 		
-		noArv2 treco = pesquisar3(this.raiz,tim);
-		if (pesquisar3(this.raiz,tim)!= null){
-			return true;
+		Item2 treco = pesquisar3(this.raiz,tim).getInfo();
+		if ((treco)!= null){
+			return "Nome do time: "+ treco.getTime() + "Pontuacao: " + treco.getPontuacao();
 		}else{
-			return false;
+			return "O time não existe e portanto nao e possivel mostrar pontuacao";
 		}
 	}
 	private NoArv2 pesquisar3 (NoArv2 no, String tim2){
@@ -262,7 +262,6 @@ public class Arvore2 {
 		return vet;
 	}
 	
-	public
 	
 
 }

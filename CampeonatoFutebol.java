@@ -224,7 +224,7 @@ public class CampeonatoFutebol {
 		String nome;
 		System.out.println("Digite o nome do time que deseja verificar com quantos pontos ele ganhou no campeonato: ");
 		nome=scan.next();
-		
+		System.out.println(arquivotimes.pesquisar3(nome));
 	}
 
 }
