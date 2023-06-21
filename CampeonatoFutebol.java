@@ -11,7 +11,7 @@ public class CampeonatoFutebol {
 	static Scanner scan =new Scanner(System.in);
 	static Arvore3 arquivocampeonato = new Arvore3();
 	static Arvore2 arquivotimes = new Arvore2();
-	static Random gerador = new Random(50);
+	static Random gerador = new Random();
 	
 	public static void main(String[] args) {
 		//int valor;
@@ -90,7 +90,7 @@ public class CampeonatoFutebol {
 		
 		System.out.println("Digite o nome do time");
 		nome=scan.next();
-		int chave = gerador.nextInt();
+		int chave = gerador.nextInt(50);
 		System.out.println("Digite a pontuação do time:");
 		pontua=scan.nextInt();
 		System.out.println("Ano em que o time foi campeão: ");
@@ -216,16 +216,19 @@ public class CampeonatoFutebol {
 			switch(op) {
 			case '1':
 				Exibetime();
+				break;
 			case '2':
 				Exibecamp();
+				break;
 			case '3':
 				System.out.println("voltando...");
+				break;
 			default:
 				System.out.println("Opcao invalida!");
 			}
 			
 			
-		}while(op!=03);
+		}while(op!='3');
 		
 	}
 	
@@ -243,6 +246,9 @@ public class CampeonatoFutebol {
 				str2+= vetor[i].getTime() + " | ";
 				str3+= vetor[i].getPontuacao() + " | ";
 			}
+			System.out.println(str1);
+			System.out.println(str2);
+			System.out.println(str3);
 		}
 	}
 	
@@ -260,6 +266,9 @@ public class CampeonatoFutebol {
 				str2+= vetor[i].getCampeonato() + " | ";
 				str3+= vetor[i].getAno() + " | ";
 			}
+			System.out.println(str1);
+			System.out.println(str2);
+			System.out.println(str3);
 			
 		}
 		
