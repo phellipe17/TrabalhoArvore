@@ -94,10 +94,10 @@ public class Arvore3 {
 	private Item3 [] FazPesquisaanocampeonato (NoArv3 arv, Item3 [] vet, int []n,String camp2){
 		if (arv != null) {
 			vet = FazCamCentral (arv.getEsq(),vet,n);
-			if(camp2.equalsIgnoreCase(arv.getInfo().getCampeonato()) ) {
-				vet[n[0]] = arv.getInfo();
-			}
-			n[0]++;
+			if (arv.getInfo().getCampeonato().equalsIgnoreCase(camp2)) {
+	            vet[n[0]] = arv.getInfo();
+	            n[0]++;
+	        }
 			vet = FazCamCentral (arv.getDir(),vet,n);
 		}
 		return vet;

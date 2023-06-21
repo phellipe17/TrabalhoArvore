@@ -149,7 +149,7 @@ public class CampeonatoFutebol {
 		}
 			
 	}
-	
+	//pesquisa para checar se já existe registro de um mesmo campeonato no mesmo ano
 	public static boolean PesquisaParaInserirC(String nomezero, int anozero) {
 		if (arquivocampeonato.eVazia()){
 			System.out.println("Árvore está vazia");
@@ -203,19 +203,20 @@ public class CampeonatoFutebol {
 	public static void MostraAnosCampeonato() {
 		Item3 [] vetor= new Item3[20];
 		String nomechamp;
+		String anos="";
 		if (arquivocampeonato.eVazia()){
 			System.out.println("Árvore está vazia");
 		}else{
 				System.out.println("Digite o nome do campeonato para ser mostrado quais anos ele ocorreu: ");
 				nomechamp=scan.next();
-				vetor = arquivocampeonato.Pesquisaanocampeonato(nomechamp);
-				String msg="";
+				vetor = arquivocampeonato.CamCentral();
 				for(int i=0;i<arquivocampeonato.getQuantNos();i++) {
-					msg+= vetor[i].getAno()+ " ";
+					if(nomechamp.equalsIgnoreCase(vetor[i].getCampeonato())) {
+						anos+= vetor[i].getAno() + " ";
+					}
 				}
 				
-				System.out.println("Os anos que o campeonato "+nomechamp+" aconteceram foi: ");
-				System.out.println(msg);
+				System.out.println("Os anos que o campeonato "+nomechamp+" aconteceram foi: "+anos);
 			}
 		
 	}
