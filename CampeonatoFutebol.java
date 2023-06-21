@@ -36,7 +36,7 @@ public class CampeonatoFutebol {
 				case '7':
 					MostraAnosCampeonato();
 				case '8':
-				
+					ExibeInfoArvore();
 				case '9':
 					System.out.println("fim do programa");
 					break;
@@ -70,6 +70,7 @@ public class CampeonatoFutebol {
 		System.out.println("5 - Exclui Campeonato");
 		System.out.println("6 - Exibe a pontuacao do time que deseja pesquisar.");
 		System.out.println("7 - Mostra os anos que ocorreram um campeonato.");
+		System.out.println("8 - Exibir informações das arvores.");
 		System.out.println("9 - Sair do programa.");
 		System.out.println("####################################################");
 		System.out.println("Digite uma opcao: ");
@@ -90,14 +91,15 @@ public class CampeonatoFutebol {
 		nomeCamp=scan.next();
 		if(arquivocampeonato.inserir(new Item3(chave,nomeCamp,anu1))) {
 			System.out.println("Foi inserido na árvore de campeonatos corretamente.");
+			if(arquivotimes.inserir(new Item2(chave,nome,pontua))) {
+				System.out.println("O time foi inserido na árvore de times corretamente.");
+			}else {
+				System.out.println("Não foi possivel inserir pois já existe em nossa arvore");
+			}
 		}else {
-			System.out.println("Não foi possivel inserir pois já existe ");
+			System.out.println("Não foi possivel inserir pois já existe em nossa arvore");
 		}
-		if(arquivotimes.inserir(new Item2(chave,nome,pontua))) {
-			System.out.println("O time foi inserido na árvore de times corretamente.");
-		}else {
-			System.out.println("Nao foi possivel pois a arvore já tem esse time.");
-		}
+		
 		
 		
 				
@@ -142,6 +144,7 @@ public class CampeonatoFutebol {
 		if (arquivotimes.eVazia()){
 			System.out.println("Árvore está vazia");
 		}else{
+			Exibetime();
 			System.out.println("Digite o nome do time que deseja excluir da nossa arvore: ");
 			nometime=scan.next();
 			if(arquivotimes.remover(nometime)) {
@@ -159,10 +162,7 @@ public class CampeonatoFutebol {
 		if (arquivocampeonato.eVazia()){
 			System.out.println("Arvore está vazia");
 		}else {
-			Item3 vet [] = arquivocampeonato.CamCentral();
-			for(int i=0;i<arquivocampeonato.getQuantNos();i++) {
-				msg += vet[i].getChave() +" ";
-			}
+			Exibecamp();	
 			System.out.println("Para esxcluir um campeonato digite um id de algum campeonato: ");
 			System.out.println(msg);
 			valor = scan.nextInt();
@@ -194,12 +194,72 @@ public class CampeonatoFutebol {
 		
 	}
 	
-	
 	public static void PontuacaodoTime() {
 		String nome;
 		System.out.println("Digite o nome do time que deseja verificar com quantos pontos ele ganhou no campeonato: ");
 		nome=scan.next();
 		System.out.println(arquivotimes.pesquisar3(nome));
 	}
+	
+	public static void ExibeInfoArvore() {
+		char op=0;
+		do {
+			System.out.println("1 - Exibir info da arvore de time.");
+			System.out.println("2 - Exibir info de arvore de campeonato. ");
+			System.out.println("3 - Voltar");
+			op=scan.next().charAt(0);
+			switch(op) {
+			case '1':
+				Exibetime();
+			case '2':
+				Exibecamp();
+			case '3':
+				System.out.println("voltando...");
+			default:
+				System.out.println("Opcao invalida!");
+			}
+			
+			
+		}while(op!=03);
+		
+	}
+	
+	public static void Exibetime() {
+		String str1="";
+		String str2="";
+		String str3="";
+		if (arquivotimes.eVazia()){
+			System.out.println("A árvore está vazia");
+		}else{
+			Item2 [] vetor= new Item2[20];
+			vetor = arquivotimes.CamCentral();
+			for(int i=0;i<arquivotimes.getQuantNos();i++) {
+				str1+= vetor[i].getChave() + " | ";
+				str2+= vetor[i].getTime() + " | ";
+				str3+= vetor[i].getPontuacao() + " | ";
+			}
+		}
+	}
+	
+	public static void Exibecamp() {
+		String str1="";
+		String str2="";
+		String str3="";
+		if (arquivocampeonato.eVazia()){
+			System.out.println("A árvore está vazia");
+		}else{
+			Item3 [] vetor = new Item3[20];
+			vetor =arquivocampeonato.CamCentral();
+			for(int i=0;i<arquivocampeonato.getQuantNos();i++) {
+				str1+= vetor[i].getChave() + " | ";
+				str2+= vetor[i].getCampeonato() + " | ";
+				str3+= vetor[i].getAno() + " | ";
+			}
+			
+		}
+		
+		
+	}
+	
 
 }
