@@ -97,17 +97,21 @@ public class CampeonatoFutebol {
 		anu1=scan.nextInt();
 		System.out.println("Nome do campeonato que ele participou");
 		nomeCamp=scan.next();
-		if(arquivocampeonato.inserir(new Item3(chave,nomeCamp,anu1))) {
-			System.out.println("Foi inserido na árvore de campeonatos corretamente.");
-			if(arquivotimes.inserir(new Item2(chave,nome,pontua))) {
-				System.out.println("O time foi inserido na árvore de times corretamente.");
+		if(PesquisaParaInserirC(nomeCamp,anu1)) {
+			System.out.println("Não é possivel pois Já foi anotado o campeonato nesse mesmo ano.");
+		}
+		else {
+			if(arquivocampeonato.inserir(new Item3(chave,nomeCamp,anu1))) {
+				System.out.println("Foi inserido na árvore de campeonatos corretamente.");
+				if(arquivotimes.inserir(new Item2(chave,nome,pontua))) {
+					System.out.println("O time foi inserido na árvore de times corretamente.");
+				}else {
+					System.out.println("Não foi possivel inserir pois já existe em nossa arvore");
+				}
 			}else {
 				System.out.println("Não foi possivel inserir pois já existe em nossa arvore");
 			}
-		}else {
-			System.out.println("Não foi possivel inserir pois já existe em nossa arvore");
-		}	
-				
+		}		
 	}
 	
 	public static void PesquisaTime() {
@@ -126,22 +130,39 @@ public class CampeonatoFutebol {
 		
 	}
 	
-	public static String PesquisaCampeonato() {
-		String nomecamp;
-		Item3 [] vetor= new Item3[20];
+	public static void PesquisaCampeonato() {
 		if (arquivocampeonato.eVazia()){
 			System.out.println("Árvore está vazia");
 		}else{
+			String nomecamp;
+			Item3 [] vetor= new Item3[20];
+			String resposta = "não foi Dessa vez que o campeonato desejado esta na nossa arvore.";
 			vetor= arquivocampeonato.CamCentral();
 			System.out.println("Digite o nome do campeonato");
 			nomecamp=scan.next();
 			for(int i=0;i<arquivocampeonato.getQuantNos();i++) {
-				if(nomecamp == vetor[i].getCampeonato()) {
-					return "O campeonato aconteceu e foi no ano de "+vetor[i].getAno();
+				if(nomecamp.equalsIgnoreCase(vetor[i].getCampeonato())) {
+					resposta= "Campeonato esta em nossa arvore";
+				}
+			}
+			System.out.println(resposta);
+		}
+			
+	}
+	
+	public static boolean PesquisaParaInserirC(String nomezero, int anozero) {
+		if (arquivocampeonato.eVazia()){
+			System.out.println("Árvore está vazia");
+		}else{
+			Item3 [] vetor= new Item3[20];
+			vetor= arquivocampeonato.CamCentral();
+			for(int i=0;i<arquivocampeonato.getQuantNos();i++) {
+				if(nomezero.equalsIgnoreCase(vetor[i].getCampeonato()) && anozero == vetor[i].getAno()) {
+					return true;
 				}
 			}
 		}
-		return "Não foi encontrado campeonato na nossa arvore";	
+		return false;
 	}
 	
 	public static void ExcluiTime() {
@@ -203,7 +224,13 @@ public class CampeonatoFutebol {
 		String nome;
 		System.out.println("Digite o nome do time que deseja verificar com quantos pontos ele ganhou no campeonato: ");
 		nome=scan.next();
-		System.out.println(arquivotimes.pesquisar3(nome));
+		if(arquivotimes.pesquisar3(nome)!=null) {
+			System.out.println("O time "+nome+" ganhou com a pontuação "+arquivotimes.pesquisar3(nome).getPontuacao());
+		}
+		else {
+			System.out.println("O time não se encontra na nossa arovre para te mostrar a pontuacao.");
+		}
+
 	}
 	
 	public static void ExibeInfoArvore() {

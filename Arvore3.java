@@ -21,7 +21,7 @@ public class Arvore3 {
 	}
 	//inserir um novo nó na arvore. Sempre insere em um atributo que seja igual a null
 	public boolean inserir (Item3 elem){
-		if (pesquisar (elem.getChave()) || pesquisar2(elem.getAno()) ){
+		if (pesquisar (elem.getChave())){
 			return false;
 		}else{
 			this.raiz = inserir (elem, this.raiz);
@@ -94,7 +94,7 @@ public class Arvore3 {
 	private Item3 [] FazPesquisaanocampeonato (NoArv3 arv, Item3 [] vet, int []n,String camp2){
 		if (arv != null) {
 			vet = FazCamCentral (arv.getEsq(),vet,n);
-			if(camp2== arv.getInfo().getCampeonato()) {
+			if(camp2.equalsIgnoreCase(arv.getInfo().getCampeonato()) ) {
 				vet[n[0]] = arv.getInfo();
 			}
 			n[0]++;

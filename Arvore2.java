@@ -88,24 +88,24 @@ public class Arvore2 {
 	
 	
 	//pesquisa o time para falar a pontuacao que ele ganhou o campeonato.
-	public String pesquisar3 (String tim){
+	public Item2 pesquisar3 (String tim){
 		Item2 treco = pesquisar3(this.raiz,tim).getInfo();
 		if ((treco)!= null){
-			return "Nome do time: "+ treco.getTime() + "Pontuacao: " + treco.getPontuacao();
+			return treco;
 		}else{
-			return "O time não existe e portanto nao e possivel mostrar pontuacao";
+			return null;
 		}
 	}
 	
 	private NoArv2 pesquisar3 (NoArv2 no, String tim2){
 		if (no != null){
 			if(tim2.compareToIgnoreCase(no.getInfo().getTime())<0) {
-			//if (tim2 !=no.getInfo().getTime()){
-				no = pesquisar2 (no.getEsq(),tim2);
+			
+				no = pesquisar3 (no.getEsq(),tim2);
 			}else{
 				if(tim2.compareToIgnoreCase(no.getInfo().getTime())>0) {
-				//if (tim2 !=no.getInfo().getTime()){
-					no = pesquisar2 (no.getDir(),tim2);
+				
+					no = pesquisar3 (no.getDir(),tim2);
 				}
 			}
 		}
