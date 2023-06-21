@@ -23,20 +23,28 @@ public class CampeonatoFutebol {
 			switch(opcao) {
 				case '1':
 					CadastraTimeeCampeonato();
+					break;
 				case '2':
 					PesquisaTime();
+					break;
 				case '3':
 					PesquisaCampeonato();
+					break;
 				case '4':
 					ExcluiTime();
+					break;
 				case '5':
 					ExcluiCampeonato();
+					break;
 				case '6':
 					PontuacaodoTime();
+					break;
 				case '7':
 					MostraAnosCampeonato();
+					break;
 				case '8':
 					ExibeInfoArvore();
+					break;
 				case '9':
 					System.out.println("fim do programa");
 					break;
@@ -78,7 +86,7 @@ public class CampeonatoFutebol {
 	
 	public static void CadastraTimeeCampeonato() {
 		String nome, nomeCamp;
-		int pontua,anu1 ;
+		int pontua,anu1;
 		
 		System.out.println("Digite o nome do time");
 		nome=scan.next();
@@ -98,10 +106,7 @@ public class CampeonatoFutebol {
 			}
 		}else {
 			System.out.println("Não foi possivel inserir pois já existe em nossa arvore");
-		}
-		
-		
-		
+		}	
 				
 	}
 	
