@@ -89,12 +89,21 @@ public class Arvore2 {
 	
 	//pesquisa o time para falar a pontuacao que ele ganhou o campeonato.
 	public Item2 pesquisar3 (String tim){
-		Item2 treco = pesquisar3(this.raiz,tim).getInfo();
-		if ((treco)!= null){
-			return treco;
-		}else{
-			return null;
+		Item2 treco;
+		try {
+			treco = pesquisar3(this.raiz,tim).getInfo();	
+				
+				
+			if ((treco)!= null){
+				return treco;
+			}else{
+				return null;
+			}
+		}catch(Exception ex) {
+			System.out.println("Time não encontrado, tente novamente...");
 		}
+		
+		return null;
 	}
 	
 	private NoArv2 pesquisar3 (NoArv2 no, String tim2){
@@ -108,6 +117,8 @@ public class Arvore2 {
 					no = pesquisar3 (no.getDir(),tim2);
 				}
 			}
+		}else {
+			return null;
 		}
 		return no;
 	}
@@ -127,10 +138,10 @@ public class Arvore2 {
 		}
 	}
 	public NoArv2 remover (NoArv2 arv, String tim2){
-		if (tim2 == arv.getInfo().getTime()){
+		if (tim2.compareToIgnoreCase(arv.getInfo().getTime()) <0 ){
 			arv.setEsq(remover (arv.getEsq(),tim2));
 		}else{
-			if (tim2 == arv.getInfo().getTime()){
+			if (tim2.compareToIgnoreCase(arv.getInfo().getTime()) >0 ){
 				arv.setDir(remover (arv.getDir(),tim2));
 			}else{
 				if (arv.getDir()== null){
@@ -207,45 +218,45 @@ public class Arvore2 {
 	
 	//utilizado copia cam central para colocar em ordem alfabetica os times e mostra apenas os times da arvore que tem a mesma inical
 	//do time que foi passado
-	public Item2 [] Pesquisatimeinicial(String tim) {
-		int []n= new int[1];
-		n[0]=0;
-		Item2 [] vet = new Item2[this.quantNos];
-		return (FazPesquisatimeinicial (this.raiz, vet, n,tim));
-	}
-	
-	private Item2[] FazPesquisatimeinicial(NoArv2 arv, Item2[] vet, int []n,String tim2) {
-		if (arv != null) {
-			vet = FazCamCentral (arv.getEsq(),vet,n);
-			if(tim2.charAt(0)==arv.getInfo().getTime().charAt(0)) {
-				vet[n[0]] = arv.getInfo();
-			}
-			n[0]++;
-			vet = FazCamCentral (arv.getDir(),vet,n);
-		}
-		return vet;
-	}
-	
-	//quantos times possuem mais de 15 jogadores no time - Usando pos
-	
-	public Item2 [] PesquisaQuantJog() {
-		int []n= new int[1];
-		n[0]=0;
-		Item2 [] vet = new Item2[this.quantNos];
-		return (FazPesquisaQuantJog (this.raiz, vet, n));
-	}
-	
-	private Item2 [] FazPesquisaQuantJog(NoArv2 arv, Item2[] vet, int []n) {
-		if (arv != null) {
-			vet = FazCamPosFixado (arv.getEsq(), vet,n);
-			vet = FazCamPosFixado (arv.getDir(), vet,n);
-			if(arv.getInfo().getChave()>=15) {
-				vet[n[0]] = arv.getInfo();
-				n[0]++;
-			}
-		}
-		return vet;
-	}
+//	public Item2 [] Pesquisatimeinicial(String tim) {
+//		int []n= new int[1];
+//		n[0]=0;
+//		Item2 [] vet = new Item2[this.quantNos];
+//		return (FazPesquisatimeinicial (this.raiz, vet, n,tim));
+//	}
+//	
+//	private Item2[] FazPesquisatimeinicial(NoArv2 arv, Item2[] vet, int []n,String tim2) {
+//		if (arv != null) {
+//			vet = FazCamCentral (arv.getEsq(),vet,n);
+//			if(tim2.charAt(0)==arv.getInfo().getTime().charAt(0)) {
+//				vet[n[0]] = arv.getInfo();
+//			}
+//			n[0]++;
+//			vet = FazCamCentral (arv.getDir(),vet,n);
+//		}
+//		return vet;
+//	}
+//	
+//	//quantos times possuem mais de 15 jogadores no time - Usando pos
+//	
+//	public Item2 [] PesquisaQuantJog() {
+//		int []n= new int[1];
+//		n[0]=0;
+//		Item2 [] vet = new Item2[this.quantNos];
+//		return (FazPesquisaQuantJog (this.raiz, vet, n));
+//	}
+//	
+//	private Item2 [] FazPesquisaQuantJog(NoArv2 arv, Item2[] vet, int []n) {
+//		if (arv != null) {
+//			vet = FazCamPosFixado (arv.getEsq(), vet,n);
+//			vet = FazCamPosFixado (arv.getDir(), vet,n);
+//			if(arv.getInfo().getChave()>=15) {
+//				vet[n[0]] = arv.getInfo();
+//				n[0]++;
+//			}
+//		}
+//		return vet;
+//	}
 	
 	
 

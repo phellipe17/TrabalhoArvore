@@ -64,25 +64,25 @@ public class Arvore3 {
 		return no;
 	}
 	//pesquisa ano
-	public boolean pesquisar2 (int chave){
-		if (pesquisar2 (chave, this.raiz)!= null){
-			return true;
-		}else{
-			return false;
-		}
-	}
-	private NoArv3 pesquisar2 (int chave, NoArv3 no){
-		if (no != null){
-			if (chave < no.getInfo().getChave() ){
-				no = pesquisar (chave, no.getEsq());
-			}else{
-				if (chave > no.getInfo().getChave()){
-					no = pesquisar (chave, no.getDir());
-				}
-			}
-		}
-		return no;
-	}
+//	public boolean pesquisar2 (int chave){
+//		if (pesquisar2 (chave, this.raiz)!= null){
+//			return true;
+//		}else{
+//			return false;
+//		}
+//	}
+//	private NoArv3 pesquisar2 (int chave, NoArv3 no){
+//		if (no != null){
+//			if (chave < no.getInfo().getChave() ){
+//				no = pesquisar (chave, no.getEsq());
+//			}else{
+//				if (chave > no.getInfo().getChave()){
+//					no = pesquisar (chave, no.getDir());
+//				}
+//			}
+//		}
+//		return no;
+//	}
 	
 	//pesquisa ano e campeonato
 	public Item3 [] Pesquisaanocampeonato (String camp){

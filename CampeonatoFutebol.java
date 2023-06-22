@@ -225,17 +225,24 @@ public class CampeonatoFutebol {
 		String nome;
 		System.out.println("Digite o nome do time que deseja verificar com quantos pontos ele ganhou no campeonato: ");
 		nome=scan.next();
-		if(arquivotimes.pesquisar3(nome)!=null) {
-			System.out.println("O time "+nome+" ganhou com a pontuação "+arquivotimes.pesquisar3(nome).getPontuacao());
+		if(arquivotimes.eVazia()) {
+			System.out.println("A arvore esta vazia.");
 		}
-		else {
-			System.out.println("O time não se encontra na nossa arovre para te mostrar a pontuacao.");
+		else{
+			if(arquivotimes.pesquisar3(nome)!=null) {
+				System.out.println("O time "+nome+" ganhou com a pontuação "+arquivotimes.pesquisar3(nome).getPontuacao());
+			}
+			else {
+				System.out.println("O time não se encontra na nossa arovre para te mostrar a pontuacao.");
+			}
 		}
+		
 
 	}
 	
 	public static void ExibeInfoArvore() {
 		char op=0;
+		
 		do {
 			System.out.println("1 - Exibir info da arvore de time.");
 			System.out.println("2 - Exibir info de arvore de campeonato. ");
