@@ -266,49 +266,29 @@ public class CampeonatoFutebol {
 		}while(op!='3');
 		
 	}
-	
-	public static void Exibetime() {
-		String str1="";
-		String str2="";
-		String str3="";
-		if (arquivotimes.eVazia()){
-			System.out.println("A árvore está vazia");
-		}else{
-			Item2 [] vetor= new Item2[20];
-			vetor = arquivotimes.CamCentral();
-			for(int i=0;i<arquivotimes.getQuantNos();i++) {
-				str1+= vetor[i].getChave() + " | ";
-				str2+= vetor[i].getTime() + " | ";
-				str3+= vetor[i].getPontuacao() + " | ";
-			}
-			System.out.println(str1);
-			System.out.println(str2);
-			System.out.println(str3);
-		}
-	}
-	
-	public static void Exibecamp() {
-		String str1="";
-		String str2="";
-		String str3="";
-		if (arquivocampeonato.eVazia()){
-			System.out.println("A árvore está vazia");
-		}else{
-			Item3 [] vetor = new Item3[20];
-			vetor =arquivocampeonato.CamCentral();
-			for(int i=0;i<arquivocampeonato.getQuantNos();i++) {
-				str1+= vetor[i].getChave() + " | ";
-				str2+= vetor[i].getCampeonato() + " | ";
-				str3+= vetor[i].getAno() + " | ";
-			}
-			System.out.println(str1);
-			System.out.println(str2);
-			System.out.println(str3);
-			
-		}
-		
-		
-	}
-	
 
+	public static void Exibetime() {
+		if (arquivotimes.eVazia()) {
+			System.out.println("A árvore está vazia");
+		} else {
+			Item2[] vetor = arquivotimes.CamCentral();
+			System.out.println("Chave | Time | Pontuação");
+			for (int i = 0; i < arquivotimes.getQuantNos(); i++) {
+				System.out.println(vetor[i].getChave() + " | " + vetor[i].getTime() + " | " + vetor[i].getPontuacao());
+			}
+		}
+	}
+
+
+	public static void Exibecamp() {
+		if (arquivocampeonato.eVazia()) {
+			System.out.println("A árvore está vazia");
+		} else {
+			Item3[] vetor = arquivocampeonato.CamCentral();
+			System.out.println("Chave | Campeonato | Ano");
+			for (int i = 0; i < arquivocampeonato.getQuantNos(); i++) {
+				System.out.println(vetor[i].getChave() + " | " + vetor[i].getCampeonato() + " | " + vetor[i].getAno());
+			}
+		}
+	}
 }

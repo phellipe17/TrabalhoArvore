@@ -64,29 +64,27 @@ public class Arvore2 {
 		return no;
 	}
 	//Pesquisa se o time já existe
-	public boolean pesquisar2 (String tim){
-		if (pesquisar2(this.raiz,tim)!= null){
-			return true;
-		}else{
-			return false;
+	public boolean pesquisar2(String tim) {
+		return pesquisar2(this.raiz, tim);
+	}
+
+	private boolean pesquisar2(NoArv2 no, String tim2) {
+		if (no == null) {
+			return false; // Time não encontrado na árvore
+		}
+
+		int comparacao = tim2.compareToIgnoreCase(no.getInfo().getTime());
+		if (comparacao == 0) {
+			return true; // Encontrou o time na árvore
+		} else if (comparacao < 0) {
+			return pesquisar2(no.getEsq(), tim2); // Continua a busca na subárvore esquerda
+		} else {
+			return pesquisar2(no.getDir(), tim2); // Continua a busca na subárvore direita
 		}
 	}
-	private NoArv2 pesquisar2 (NoArv2 no, String tim2){
-		if (no != null){
-			if(tim2.compareToIgnoreCase(no.getInfo().getTime())<0) {
-			//if (tim2 !=no.getInfo().getTime()){
-				no = pesquisar2 (no.getEsq(),tim2);
-			}else{
-				if(tim2.compareToIgnoreCase(no.getInfo().getTime())>0) {
-				//if (tim2 !=no.getInfo().getTime()){
-					no = pesquisar2 (no.getDir(),tim2);
-				}
-			}
-		}
-		return no;
-	}
-	
-	
+
+
+
 	//pesquisa o time para falar a pontuacao que ele ganhou o campeonato.
 	public Item2 pesquisar3 (String tim){
 		Item2 treco;
@@ -127,46 +125,59 @@ public class Arvore2 {
 	//remove um determinado nó procurando pela chave. O nó pode estar em qualquer
 	//posição na árvore
 	//imagino que só o ato de pesquisar 2 possa resolver pois trata do nome do time
-	public boolean remover (String tim){
-		if (pesquisar2(this.raiz,tim) != null){
-			this.raiz = remover (this.raiz,tim);
+	public boolean remover(String tim) {
+		if (pesquisar2(this.raiz, tim)) {
+			this.raiz = remover(this.raiz, tim);
 			this.quantNos--;
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
-	public NoArv2 remover (NoArv2 arv, String tim2){
-		if (tim2.compareToIgnoreCase(arv.getInfo().getTime()) <0 ){
-			arv.setEsq(remover (arv.getEsq(),tim2));
-		}else{
-			if (tim2.compareToIgnoreCase(arv.getInfo().getTime()) >0 ){
-				arv.setDir(remover (arv.getDir(),tim2));
-			}else{
-				if (arv.getDir()== null){
-					return arv.getEsq();
-				}else{
-					if (arv.getEsq() == null){
-						return arv.getDir();
-					}else{
-						arv.setEsq(Arrumar (arv, arv.getEsq()));
-					}
-				}
+
+	private NoArv2 remover(NoArv2 arv, String tim2) {
+		if (arv == null) {
+			return null;
+		}
+
+		int comparacao = tim2.compareToIgnoreCase(arv.getInfo().getTime());
+		if (comparacao < 0) {
+			arv.setEsq(remover(arv.getEsq(), tim2)); // Continua a busca na subárvore esquerda
+		} else if (comparacao > 0) {
+			arv.setDir(remover(arv.getDir(), tim2)); // Continua a busca na subárvore direita
+		} else {
+			// Encontrou o nó a ser removido
+
+			if (arv.getEsq() == null && arv.getDir() == null) {
+				// Caso 1: O nó a ser removido é uma folha
+				return null;
+			} else if (arv.getEsq() == null) {
+				// Caso 2: O nó a ser removido possui apenas um filho à direita
+				return arv.getDir();
+			} else if (arv.getDir() == null) {
+				// Caso 2: O nó a ser removido possui apenas um filho à esquerda
+				return arv.getEsq();
+			} else {
+				// Caso 3: O nó a ser removido possui dois filhos
+				arv.setEsq(arrumar(arv, arv.getEsq())); // Encontra o maior nó na subárvore esquerda
 			}
 		}
+
 		return arv;
 	}
-	private NoArv2 Arrumar (NoArv2 arv, NoArv2 maior){
-		if (maior.getDir() != null){
-			maior.setDir(Arrumar (arv, maior.getDir()));
-		}
-		else{
-			arv.setInfo(maior.getInfo());
+
+	private NoArv2 arrumar(NoArv2 arv, NoArv2 maior) {
+		if (maior.getDir() != null) {
+			maior.setDir(arrumar(arv, maior.getDir())); // Continua a busca pelo maior nó na subárvore direita
+		} else {
+			arv.setInfo(maior.getInfo()); // Substitui o nó a ser removido pelo maior nó encontrado
 			maior = maior.getEsq();
 		}
+
 		return maior;
 	}
+
+
 	//caminhamento central
 	public Item2 [] CamCentral (){
 		int []n= new int[1];
